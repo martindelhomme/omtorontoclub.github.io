@@ -1,0 +1,10 @@
+date,heure_fr,heure_toronto,competition,domicile,exterieur,score,statut
+2025-08-10,21:00,15:00,Ligue 1,OM,Lyon,2-1,termine
+2025-08-17,17:00,11:00,Ligue 1,Rennes,OM,0-0,termine
+2025-08-24,21:00,15:00,Ligue 1,OM,Monaco,3-2,termine
+2025-08-31,15:00,09:00,Ligue 1,Lille,OM,1-2,termine
+2025-09-14,21:00,15:00,Ligue 1,OM,PSG,,a_venir
+2025-09-21,17:00,11:00,Ligue 1,Nice,OM,,a_venir
+2025-09-28,21:00,15:00,Ligue 1,OM,Lens,,a_venir
+2025-10-05,15:00,09:00,Ligue 1,Brest,OM,,a_venir
+2025-10-19,21:00,15:00,Ligue 1,OM,Strasbourg,,a_venir

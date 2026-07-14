@@ -1,98 +1,47 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OM Toronto Club</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background: #0a1628; color: #fff; }
-
-    /* LANG SWITCHER */
-    .lang-bar {
-      position: fixed; top: 0; right: 0; z-index: 100;
-      display: flex; gap: 4px; padding: 8px 12px;
-      background: rgba(10,22,40,0.85); backdrop-filter: blur(8px);
-      border-bottom-left-radius: 12px;
-    }
-    .lang-btn {
-      background: none; border: none; cursor: pointer;
-      font-size: 1rem; line-height: 1; padding: 2px 3px;
-      border-radius: 4px; opacity: 0.45; transition: opacity 0.15s, transform 0.15s;
-    }
+    .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; height: 52px; background: rgba(10,22,40,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(201,168,76,0.2); }
+    .topbar-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .topbar-logo img { width: 32px; height: 32px; border-radius: 50%; object-fit: contain; }
+    .topbar-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: #fff; letter-spacing: 0.05em; }
+    .topbar-logo span em { color: #c9a84c; font-style: normal; }
+    nav { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-link { color: rgba(255,255,255,0.55); font-size: 0.8rem; font-weight: 500; text-decoration: none; padding: 0.35rem 0.65rem; border-radius: 6px; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .nav-link.active { color: #c9a84c; }
+    .lang-bar { display: flex; gap: 3px; margin-left: 0.75rem; padding-left: 0.75rem; border-left: 1px solid rgba(255,255,255,0.1); }
+    .lang-btn { background: none; border: none; cursor: pointer; font-size: 1rem; padding: 2px 3px; border-radius: 4px; opacity: 0.45; transition: opacity 0.15s, transform 0.15s; }
     .lang-btn:hover { opacity: 0.85; transform: scale(1.15); }
     .lang-btn.active { opacity: 1; transform: scale(1.15); }
-
-    .hero {
-      background: linear-gradient(160deg, #0d1f3c 0%, #1a3260 50%, #0d1f3c 100%);
-      padding: 3rem 1.5rem 2.5rem; text-align: center;
-      position: relative; overflow: hidden; border-bottom: 3px solid #c9a84c;
-    }
-    .hero::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .logo-wrap {
-      width: 140px; height: 140px; margin: 0 auto 1.25rem;
-      filter: drop-shadow(0 4px 24px rgba(201,168,76,0.35));
-      position: relative; z-index: 1;
-    }
+    .page-body { padding-top: 52px; }
+    .hero { background: linear-gradient(160deg, #0d1f3c 0%, #1a3260 50%, #0d1f3c 100%); padding: 3rem 1.5rem 2.5rem; text-align: center; position: relative; overflow: hidden; border-bottom: 3px solid #c9a84c; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 65%); pointer-events: none; }
+    .logo-wrap { width: 140px; height: 140px; margin: 0 auto 1.25rem; filter: drop-shadow(0 4px 24px rgba(201,168,76,0.35)); position: relative; z-index: 1; }
     .logo-wrap img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; display: block; }
-    .hero h1 {
-      font-family: 'Bebas Neue', 'Impact', sans-serif;
-      font-size: clamp(2.6rem, 7vw, 4rem);
-      letter-spacing: 0.05em; color: #fff; line-height: 1; margin-bottom: 0.4rem;
-      position: relative; z-index: 1;
-    }
+    .hero h1 { font-family: 'Bebas Neue', 'Impact', sans-serif; font-size: clamp(2.6rem, 7vw, 4rem); letter-spacing: 0.05em; color: #fff; line-height: 1; margin-bottom: 0.4rem; position: relative; z-index: 1; }
     .hero h1 span { color: #c9a84c; }
-    .hero p {
-      color: rgba(255,255,255,0.65); letter-spacing: 0.08em;
-      text-transform: uppercase; font-size: 0.85rem; position: relative; z-index: 1;
-    }
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
-      letter-spacing: 0.1em; color: #c9a84c; text-align: center;
-      margin-bottom: 0.5rem; text-transform: uppercase;
-    }
+    .hero p { color: rgba(255,255,255,0.65); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.85rem; position: relative; z-index: 1; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.1em; color: #c9a84c; text-align: center; margin-bottom: 0.5rem; text-transform: uppercase; }
     .divider { width: 40px; height: 2px; background: #c9a84c; margin: 0 auto 1.5rem; border-radius: 1px; }
-    .whatsapp-section {
-      background: #0d1f3c; padding: 2.5rem 1.5rem; text-align: center;
-      border-top: 1px solid rgba(201,168,76,0.2); border-bottom: 1px solid rgba(201,168,76,0.2);
-    }
-    .whatsapp-section p { color: rgba(255,255,255,0.65); font-size: 0.9rem; max-width: 360px; margin: 0 auto 1.5rem; line-height: 1.6; }
-    .btn-whatsapp {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: #25D366; color: #fff; font-family: 'Inter', sans-serif;
-      font-weight: 600; font-size: 1rem; padding: 0.85rem 2rem;
-      border-radius: 50px; border: none; cursor: pointer; text-decoration: none;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.3); transition: transform 0.15s;
-    }
-    .btn-whatsapp:hover { transform: translateY(-2px); }
-    .btn-whatsapp svg { width: 22px; height: 22px; fill: currentColor; flex-shrink: 0; }
+    .ig-section { background: #0d1f3c; padding: 2.5rem 1.5rem; text-align: center; border-top: 1px solid rgba(201,168,76,0.2); border-bottom: 1px solid rgba(201,168,76,0.2); }
+    .ig-section p { color: rgba(255,255,255,0.65); font-size: 0.9rem; max-width: 360px; margin: 0 auto 1.5rem; line-height: 1.6; }
+    .btn-main { display: inline-flex; align-items: center; gap: 10px; color: #fff; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; padding: 0.85rem 2rem; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: transform 0.15s; }
+    .btn-main:hover { transform: translateY(-2px); }
+    .btn-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); box-shadow: 0 4px 20px rgba(225,48,108,0.35); }
     .social-section { background: #091424; padding: 2.5rem 1.5rem; }
-    .social-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem; max-width: 600px; margin: 0 auto;
-    }
-    .social-card {
-      background: #0d1f3c; border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 16px; padding: 1.25rem 1rem; text-align: center;
-      text-decoration: none; color: #fff;
-      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
-      display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
-    }
+    .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; max-width: 600px; margin: 0 auto; }
+    .social-card { background: #0d1f3c; border: 1px solid rgba(201,168,76,0.2); border-radius: 16px; padding: 1.25rem 1rem; text-align: center; text-decoration: none; color: #fff; transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
     .social-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
-    .social-card.fb:hover { border-color: #1877F2; }
-    .social-card.ig:hover { border-color: #E1306C; }
-    .social-card.tw:hover { border-color: #fff; }
     .social-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
     .social-icon svg { width: 24px; height: 24px; }
-    .social-icon.fb { background: #1877F2; }
-    .social-icon.ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-    .social-icon.tw { background: #111; border: 1px solid rgba(255,255,255,0.15); }
     .social-name { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; }
     .social-handle { font-size: 0.9rem; font-weight: 500; color: #fff; }
     .about-section { background: #0d1f3c; padding: 2.5rem 1.5rem; border-top: 1px solid rgba(201,168,76,0.2); }
@@ -100,147 +49,100 @@
     .about-inner p { color: rgba(255,255,255,0.7); font-size: 0.92rem; line-height: 1.75; margin-bottom: 1rem; }
     .flag-row { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; font-size: 1.4rem; }
     .contact-row { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
-    .contact-link {
-      display: inline-flex; align-items: center; gap: 6px;
-      color: #c9a84c; font-size: 0.9rem; font-weight: 500;
-      text-decoration: none; border-bottom: 1px solid rgba(201,168,76,0.4);
-      padding-bottom: 2px; transition: border-color 0.15s;
-    }
+    .contact-link { display: inline-flex; align-items: center; gap: 6px; color: #c9a84c; font-size: 0.9rem; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(201,168,76,0.4); padding-bottom: 2px; transition: border-color 0.15s; }
     .contact-link:hover { border-color: #c9a84c; }
     .contact-link svg { width: 16px; height: 16px; flex-shrink: 0; }
-    .qg-card {
-      margin: 1.5rem 0 1.5rem; background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(201,168,76,0.15); border-radius: 12px;
-      padding: 1rem 1.25rem; display: inline-block;
-    }
-    .qg-card .qg-title { color: #fff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; font-weight: 600; }
-    .qg-card .qg-address { color: rgba(255,255,255,0.45); font-size: 0.78rem; margin-top: 0.35rem; line-height: 1.5; }
+    .qg-card { margin: 1.5rem 0 1.5rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.15); border-radius: 12px; padding: 1rem 1.25rem; display: inline-block; }
+    .qg-title { color: #fff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; font-weight: 600; }
+    .qg-address { color: rgba(255,255,255,0.45); font-size: 0.78rem; margin-top: 0.35rem; line-height: 1.5; }
     .footer { background: #060f1c; padding: 1.25rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.06); }
     .footer p { font-size: 0.72rem; color: rgba(255,255,255,0.25); letter-spacing: 0.04em; }
   </style>
 </head>
 <body>
-
-  <!-- LANGUAGE SWITCHER -->
-  <div class="lang-bar">
-    <button class="lang-btn active" onclick="setLang('fr')" title="Français">🇫🇷</button>
-    <button class="lang-btn" onclick="setLang('en')" title="English">🇬🇧</button>
-    <button class="lang-btn" onclick="setLang('es')" title="Español">🇪🇸</button>
+  <div class="topbar">
+    <a class="topbar-logo" href="index.html"><img src="logo.png" alt="logo"/><span>OM <em>Toronto</em></span></a>
+    <nav>
+      <a class="nav-link active" href="index.html" data-fr="Accueil" data-en="Home">Accueil</a>
+      <a class="nav-link" href="calendrier.html" data-fr="Calendrier" data-en="Schedule">Calendrier</a>
+      <a class="nav-link" href="galerie.html" data-fr="Galerie" data-en="Gallery">Galerie</a>
+      <a class="nav-link" href="goodies.html" data-fr="Goodies" data-en="Goodies">Goodies</a>
+      <div class="lang-bar">
+        <button class="lang-btn active" onclick="setLang('fr',event)" title="Français">🇫🇷</button>
+        <button class="lang-btn" onclick="setLang('en',event)" title="English">🇬🇧</button>
+      </div>
+    </nav>
   </div>
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="logo-wrap">
-      <img src="logo.png" alt="OM Toronto Club logo" />
-    </div>
-    <h1>OM <span>Toronto</span></h1>
-    <p data-fr="Club de supporters de l'OM à Toronto"
-       data-en="Olympique de Marseille Fan Club in Toronto"
-       data-es="Club de hinchas del OM en Toronto">
-      Club de supporters de l'OM à Toronto
-    </p>
-  </header>
-
-  <!-- INSTAGRAM HIGHLIGHT -->
-  <section class="whatsapp-section">
-    <div class="section-title"
-      data-fr="Rejoins la famille"
-      data-en="Join the family"
-      data-es="Únete a la familia">Rejoins la famille</div>
-    <div class="divider"></div>
-    <p data-fr="Matchs en direct, aftermatch, sorties supporters… toute l'actu du club se passe sur notre compte Instagram."
-       data-en="Live matches, post-game gatherings, social events… all club news happens on our Instagram account."
-       data-es="Partidos en vivo, post-partido, salidas de hinchas… toda la actualidad del club está en nuestra cuenta de Instagram.">
-      Matchs en direct, après-match, sorties supporters… toute l'actu du club se passe sur notre compte Instagram.
-    </p>
-    <a class="btn-whatsapp" href="https://www.instagram.com/omtorontoclub?igsh=MW5ybjhzMWZkODU0OA==" target="_blank" rel="noopener" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); box-shadow: 0 4px 20px rgba(225,48,108,0.35);">
-      <svg viewBox="0 0 24 24" fill="white" style="width:22px;height:22px;flex-shrink:0;"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-      <span data-fr="Suivre sur Instagram" data-en="Follow on Instagram" data-es="Seguir en Instagram">Suivre sur Instagram</span>
-    </a>
-  </section>
-
-  <!-- SOCIAL -->
-  <section class="social-section">
-    <div class="section-title"
-      data-fr="Nos réseaux"
-      data-en="Social Medias"
-      data-es="Nuestras redes">Nos réseaux</div>
-    <div class="divider"></div>
-    <div class="social-grid">
-      <a class="social-card fb" href="https://www.facebook.com/share/g/17jjm1JWe2/" target="_blank" rel="noopener">
-        <div class="social-icon fb">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </div>
-        <span class="social-handle">Facebook</span>
-        <span class="social-name" data-fr="Groupe officiel" data-en="Official group" data-es="Grupo oficial">Groupe officiel</span>
-      </a>
-      <a class="social-card" href="https://chat.whatsapp.com/KvLVdXDgbb13NJkfcSLuQO?s=cl&p=a&mlu=2" target="_blank" rel="noopener" style="--hover: #25D366;" onmouseover="this.style.borderColor='#25D366'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)'">
-        <div class="social-icon" style="background: #25D366;">
-          <svg viewBox="0 0 24 24" fill="white" style="width:24px;height:24px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        </div>
-        <span class="social-handle">WhatsApp</span>
-        <span class="social-name" data-fr="Groupe officiel" data-en="Official group" data-es="Grupo oficial">Groupe officiel</span>
-      </a>
-      <a class="social-card tw" href="https://x.com/OMTorontoClub" target="_blank" rel="noopener">
-        <div class="social-icon tw">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </div>
-        <span class="social-handle">X / Twitter</span>
-        <span class="social-name">@OMTorontoClub</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="about-section">
-    <div class="about-inner">
-      <div class="section-title"
-        data-fr="Qui sommes-nous ?"
-        data-en="Who are we?"
-        data-es="¿Quiénes somos?">Qui sommes-nous ?</div>
+  <div class="page-body">
+    <header class="hero">
+      <div class="logo-wrap"><img src="logo.png" alt="OM Toronto Club logo"/></div>
+      <h1>OM <span>Toronto</span></h1>
+      <p data-fr="Club de supporters de l'OM à Toronto" data-en="Olympique de Marseille Supporters Club in Toronto">Club de supporters de l'OM à Toronto</p>
+    </header>
+    <section class="ig-section">
+      <div class="section-title" data-fr="Rejoins la famille" data-en="Join the family">Rejoins la famille</div>
       <div class="divider"></div>
-      <div class="flag-row">🇫🇷 ⚽ 🇨🇦</div>
-      <p data-fr="Fondé en 2023, l'OM Toronto Club réunit les supporters de l'Olympique de Marseille installés à Toronto et dans la région. On se retrouve à chaque match pour vibrer ensemble, qu'il soit diffusé à 6h du matin ou à minuit. Rejoignez notre groupe WhatsApp pour plus d'informations."
-         data-en="Founded in 2023, the OM Toronto Club brings together Olympique de Marseille supporters living in Toronto and the surrounding area. We gather for every game to share the passion together, whether it kicks off at 6am or midnight. Join our WhatsApp group for more information."
-         data-es="Fundado en 2023, el OM Toronto Club reúne a los hinchas del Olympique de Marseille que viven en Toronto y sus alrededores. Nos encontramos en cada partido para vibrar juntos, ya sea a las 6 de la mañana o a medianoche. Únete a nuestro grupo de WhatsApp para más información.">
-        Fondé en 2023, l'OM Toronto Club réunit les supporters de l'Olympique de Marseille installés à Toronto et dans la région. On se retrouve à chaque match pour vibrer ensemble, qu'il soit diffusé à 6h du matin ou à minuit. Rejoignez notre groupe WhatsApp pour plus d'informations.
-      </p>
-      <div class="qg-card">
-        <p class="qg-title" data-fr="Notre QG" data-en="Headquarters" data-es="Nuestro QG">Notre QG</p>
-        <a class="contact-link" href="https://share.google/h5ij6CCLyZiSYszau" target="_blank" rel="noopener" style="font-size: 1.05rem; font-weight: 600; display: inline-flex;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          PJ O'Brien – The City Pub
+      <p data-fr="Matchs en direct, aftermatch, sorties supporters… toute l'actu du club se passe sur notre compte Instagram." data-en="Live matches, post-match gatherings, supporters outings… all club news happens on our Instagram account.">Matchs en direct, aftermatch, sorties supporters… toute l'actu du club se passe sur notre compte Instagram.</p>
+      <a class="btn-main btn-ig" href="https://www.instagram.com/omtorontoclub?igsh=MW5ybjhzMWZkODU0OA==" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="white" style="width:22px;height:22px;flex-shrink:0;"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span data-fr="Suivre sur Instagram" data-en="Follow on Instagram">Suivre sur Instagram</span>
+      </a>
+    </section>
+    <section class="social-section">
+      <div class="section-title" data-fr="Nos réseaux" data-en="Our socials">Nos réseaux</div>
+      <div class="divider"></div>
+      <div class="social-grid">
+        <a class="social-card" href="https://www.facebook.com/share/g/17jjm1JWe2/" target="_blank" rel="noopener" onmouseover="this.style.borderColor='#1877F2'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)'">
+          <div class="social-icon" style="background:#1877F2"><svg viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
+          <span class="social-handle">Facebook</span>
+          <span class="social-name" data-fr="Groupe officiel" data-en="Official group">Groupe officiel</span>
         </a>
-        <p class="qg-address">39 Colborne Street (Behind the King Edward Hotel)<br>Toronto, ON M5E 1E3 Canada</p>
+        <a class="social-card" href="https://chat.whatsapp.com/KvLVdXDgbb13NJkfcSLuQO?s=cl&p=a&mlu=2" target="_blank" rel="noopener" onmouseover="this.style.borderColor='#25D366'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)'">
+          <div class="social-icon" style="background:#25D366"><svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div>
+          <span class="social-handle">WhatsApp</span>
+          <span class="social-name" data-fr="Groupe officiel" data-en="Official group">Groupe officiel</span>
+        </a>
+        <a class="social-card" href="https://x.com/OMTorontoClub" target="_blank" rel="noopener" onmouseover="this.style.borderColor='#fff'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)'">
+          <div class="social-icon" style="background:#111;border:1px solid rgba(255,255,255,0.15)"><svg viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+          <span class="social-handle">X / Twitter</span>
+          <span class="social-name">@OMTorontoClub</span>
+        </a>
       </div>
-      <p data-fr="Que tu sois Marseillais de naissance, fan de longue date ou simplement curieux, tu es le bienvenu parmi nous. Allez l'OM ! 💙"
-         data-en="Whether you're a born Marseillais, a long-time fan, or simply curious, you're welcome among us. Allez l'OM! 💙"
-         data-es="Ya seas marsellés de nacimiento, fanático de toda la vida o simplemente curioso, eres bienvenido entre nosotros. ¡Allez l'OM! 💙">
-        Que tu sois Marseillais de naissance, fan de longue date ou simplement curieux, tu es le bienvenu parmi nous. Allez l'OM ! 💙
-      </p>
-      <div class="contact-row">
-        <a class="contact-link" href="mailto:martin.delhomme@gmail.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          <span data-fr="Nous contacter" data-en="Contact us" data-es="Contáctanos">Nous contacter</span>
-      
+    </section>
+    <section class="about-section">
+      <div class="about-inner">
+        <div class="section-title" data-fr="Qui sommes-nous ?" data-en="Who are we?">Qui sommes-nous ?</div>
+        <div class="divider"></div>
+        <div class="flag-row">🇫🇷 ⚽ 🇨🇦</div>
+        <p data-fr="Fondé en 2023, l'OM Toronto Club réunit les supporters de l'Olympique de Marseille installés à Toronto et dans la région. On se retrouve à chaque match pour vibrer ensemble, qu'il soit diffusé à 6h du matin ou à minuit. Rejoignez notre groupe WhatsApp pour plus d'informations." data-en="Founded in 2023, the OM Toronto Club brings together Olympique de Marseille supporters living in Toronto and the surrounding area. We gather for every match to share the passion together, whether it kicks off at 6am or midnight. Join our WhatsApp group for more information.">Fondé en 2023, l'OM Toronto Club réunit les supporters de l'Olympique de Marseille installés à Toronto et dans la région. On se retrouve à chaque match pour vibrer ensemble, qu'il soit diffusé à 6h du matin ou à minuit. Rejoignez notre groupe WhatsApp pour plus d'informations.</p>
+        <div class="qg-card">
+          <p class="qg-title" data-fr="Notre QG" data-en="Our HQ">Notre QG</p>
+          <a class="contact-link" href="https://share.google/h5ij6CCLyZiSYszau" target="_blank" rel="noopener" style="font-size:1.05rem;font-weight:600;display:inline-flex;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            PJ O'Brien – The City Pub
+          </a>
+          <p class="qg-address">39 Colborne Street (Behind the King Edward Hotel)<br>Toronto, ON M5E 1E3 Canada</p>
+        </div>
+        <p data-fr="Que tu sois Marseillais de naissance, fan de longue date ou simplement curieux, tu es le bienvenu parmi nous. Allez l'OM ! 💙" data-en="Whether you're a born Marseillais, a long-time fan, or simply curious, you're welcome among us. Allez l'OM! 💙">Que tu sois Marseillais de naissance, fan de longue date ou simplement curieux, tu es le bienvenu parmi nous. Allez l'OM ! 💙</p>
+        <div class="contact-row">
+          <a class="contact-link" href="mailto:martin.delhomme@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span data-fr="Nous contacter" data-en="Contact us">Nous contacter</span>
+          </a>
+          <a class="contact-link" href="https://www.linkedin.com/in/martin-delhomme-0809a810a/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <p>© 2023 OM Toronto Club · <span data-fr="Site non officiel" data-en="Unofficial website" data-es="Sitio no oficial">Site non officiel</span> · Not affiliated with Olympique de Marseille</p>
-  </footer>
-
+    </section>
+    <footer class="footer">
+      <p>© 2023 OM Toronto Club · <span data-fr="Site non officiel" data-en="Unofficial website">Site non officiel</span> · Not affiliated with Olympique de Marseille</p>
+    </footer>
+  </div>
   <script>
-    function setLang(lang) {
-      document.querySelectorAll('[data-' + lang + ']').forEach(el => {
-        el.textContent = el.getAttribute('data-' + lang);
-      });
-      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      document.documentElement.lang = lang;
-    }
+    function setLang(lang,event){document.querySelectorAll("[data-fr]").forEach(el=>{if(el.getAttribute("data-"+lang))el.textContent=el.getAttribute("data-"+lang)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));event.currentTarget.classList.add("active");document.documentElement.lang=lang;localStorage.setItem("lang",lang);}
+    (function(){const l=localStorage.getItem("lang")||"fr";if(l!=="fr"){document.querySelectorAll("[data-"+l+"]").forEach(el=>{if(el.getAttribute("data-"+l))el.textContent=el.getAttribute("data-"+l)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));const btns=document.querySelectorAll(".lang-btn");if(l==="en"&&btns[1])btns[1].classList.add("active");document.documentElement.lang=l;}})();
   </script>
-
 </body>
 </html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calendrier – OM Toronto Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:#0a1628;color:#fff;}
+    .topbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:52px;background:rgba(10,22,40,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,168,76,0.2);}
+    .topbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .topbar-logo img{width:32px;height:32px;border-radius:50%;object-fit:contain;}
+    .topbar-logo span{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#fff;letter-spacing:0.05em;}
+    .topbar-logo span em{color:#c9a84c;font-style:normal;}
+    nav{display:flex;align-items:center;gap:0.25rem;}
+    .nav-link{color:rgba(255,255,255,0.55);font-size:0.8rem;font-weight:500;text-decoration:none;padding:0.35rem 0.65rem;border-radius:6px;transition:color 0.15s,background 0.15s;white-space:nowrap;}
+    .nav-link:hover{color:#fff;background:rgba(255,255,255,0.06);}
+    .nav-link.active{color:#c9a84c;}
+    .lang-bar{display:flex;gap:3px;margin-left:0.75rem;padding-left:0.75rem;border-left:1px solid rgba(255,255,255,0.1);}
+    .lang-btn{background:none;border:none;cursor:pointer;font-size:1rem;padding:2px 3px;border-radius:4px;opacity:0.45;transition:opacity 0.15s,transform 0.15s;}
+    .lang-btn:hover{opacity:0.85;transform:scale(1.15);}
+    .lang-btn.active{opacity:1;transform:scale(1.15);}
+    .page-body{padding-top:52px;}
+    .page-header{background:linear-gradient(160deg,#0d1f3c 0%,#1a3260 50%,#0d1f3c 100%);padding:2.5rem 1.5rem 2rem;text-align:center;border-bottom:3px solid #c9a84c;}
+    .page-header h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3rem);letter-spacing:0.08em;color:#fff;}
+    .page-header h1 span{color:#c9a84c;}
+    .page-header p{color:rgba(255,255,255,0.5);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;margin-top:0.4rem;}
+    .section{padding:2rem 1.5rem;}
+    .section.dark{background:#091424;}
+    .section-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.1em;color:#c9a84c;margin-bottom:1rem;text-transform:uppercase;}
+    .divider{width:40px;height:2px;background:#c9a84c;margin:0 0 1.5rem;border-radius:1px;}
+    .match-card{background:#0d1f3c;border:1px solid rgba(201,168,76,0.2);border-radius:14px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:1rem;max-width:700px;}
+    .match-card.upcoming{border-left:3px solid #c9a84c;}
+    .match-card.past{border-left:3px solid rgba(255,255,255,0.15);opacity:0.75;}
+    .match-date{min-width:70px;text-align:center;}
+    .match-date .day{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#c9a84c;line-height:1;}
+    .match-date .month{font-size:0.7rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;}
+    .match-divider{width:1px;height:50px;background:rgba(255,255,255,0.1);flex-shrink:0;}
+    .match-info{flex:1;}
+    .match-teams{font-size:1rem;font-weight:600;color:#fff;margin-bottom:0.2rem;}
+    .match-teams .vs{color:rgba(255,255,255,0.35);font-weight:400;margin:0 6px;font-size:0.85rem;}
+    .match-meta{font-size:0.75rem;color:rgba(255,255,255,0.45);}
+    .match-meta span{margin-right:8px;}
+    .match-time{text-align:right;min-width:80px;}
+    .match-time .time-fr{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#fff;}
+    .match-time .time-to{font-size:0.7rem;color:rgba(255,255,255,0.4);}
+    .match-score{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#c9a84c;text-align:right;min-width:80px;}
+    .badge-upcoming{display:inline-block;background:rgba(201,168,76,0.15);color:#c9a84c;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-left:8px;vertical-align:middle;}
+    #loading{text-align:center;padding:2rem;color:rgba(255,255,255,0.4);font-size:0.9rem;}
+    .footer{background:#060f1c;padding:1.25rem;text-align:center;border-top:1px solid rgba(255,255,255,0.06);}
+    .footer p{font-size:0.72rem;color:rgba(255,255,255,0.25);letter-spacing:0.04em;}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="topbar-logo" href="index.html"><img src="logo.png" alt="logo"/><span>OM <em>Toronto</em></span></a>
+    <nav>
+      <a class="nav-link" href="index.html" data-fr="Accueil" data-en="Home">Accueil</a>
+      <a class="nav-link active" href="calendrier.html" data-fr="Calendrier" data-en="Schedule">Calendrier</a>
+      <a class="nav-link" href="galerie.html" data-fr="Galerie" data-en="Gallery">Galerie</a>
+      <a class="nav-link" href="goodies.html" data-fr="Goodies" data-en="Goodies">Goodies</a>
+      <div class="lang-bar">
+        <button class="lang-btn active" onclick="setLang('fr',event)">🇫🇷</button>
+        <button class="lang-btn" onclick="setLang('en',event)">🇬🇧</button>
+      </div>
+    </nav>
+  </div>
+  <div class="page-body">
+    <div class="page-header">
+      <h1 data-fr="Calendrier des <span>matchs</span>" data-en="Match <span>Schedule</span>">Calendrier des <span>matchs</span></h1>
+      <p data-fr="Heures affichées en heure de Toronto (ET)" data-en="Times displayed in Toronto time (ET)">Heures affichées en heure de Toronto (ET)</p>
+    </div>
+    <div class="section dark">
+      <div class="section-title" data-fr="⚽ Prochains matchs" data-en="⚽ Upcoming matches">⚽ Prochains matchs</div>
+      <div class="divider"></div>
+      <div id="upcoming"><div id="loading">Chargement…</div></div>
+    </div>
+    <div class="section" style="background:#0d1f3c;border-top:1px solid rgba(201,168,76,0.1);">
+      <div class="section-title" data-fr="🏁 Derniers résultats" data-en="🏁 Recent results">🏁 Derniers résultats</div>
+      <div class="divider"></div>
+      <div id="past"></div>
+    </div>
+    <footer class="footer">
+      <p>© 2023 OM Toronto Club · <span data-fr="Site non officiel" data-en="Unofficial website">Site non officiel</span> · Not affiliated with Olympique de Marseille</p>
+    </footer>
+  </div>
+  <script>
+    function setLang(lang,event){document.querySelectorAll("[data-fr]").forEach(el=>{if(el.getAttribute("data-"+lang))el.innerHTML=el.getAttribute("data-"+lang)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));event.currentTarget.classList.add("active");document.documentElement.lang=lang;localStorage.setItem("lang",lang);renderMatches(lang);}
+    const MONTHS_FR=["Jan","Fév","Mar","Avr","Mai","Jun","Jul","Aoû","Sep","Oct","Nov","Déc"];
+    const MONTHS_EN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    let allMatches=[];
+    function parseCSV(text){
+      const lines=text.trim().split("\n");
+      const headers=lines[0].split(",").map(h=>h.trim());
+      return lines.slice(1).map(line=>{
+        const vals=line.split(",").map(v=>v.trim());
+        const obj={};
+        headers.forEach((h,i)=>obj[h]=vals[i]||"");
+        return obj;
+      });
+    }
+    function renderMatches(lang){
+      const now=new Date();
+      const upcoming=allMatches.filter(m=>m.statut==="a_venir").sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,5);
+      const past=allMatches.filter(m=>m.statut==="termine").sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
+      const months=lang==="en"?MONTHS_EN:MONTHS_FR;
+      function card(m,type){
+        const d=new Date(m.date+"T12:00:00");
+        const day=d.getDate();
+        const mon=months[d.getMonth()];
+        const teams=`<span class="match-teams">${m.domicile}<span class="vs">vs</span>${m.exterieur}${type==="upcoming"?'<span class="badge-upcoming">'+(lang==="en"?"upcoming":"à venir")+"</span>":""}</span>`;
+        const meta=`<div class="match-meta"><span>📅 ${day} ${mon} ${d.getFullYear()}</span><span>🏆 ${m.competition}</span></div>`;
+        const timeOrScore=type==="upcoming"
+          ?`<div class="match-time"><div class="time-fr">${m.heure_fr}</div><div class="time-to">🇨🇦 ${m.heure_toronto} ET</div></div>`
+          :`<div class="match-score">${m.score||"–"}</div>`;
+        return `<div class="match-card ${type}"><div class="match-date"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="match-divider"></div><div class="match-info">${teams}${meta}</div>${timeOrScore}</div>`;
+      }
+      document.getElementById("upcoming").innerHTML=upcoming.length?upcoming.map(m=>card(m,"upcoming")).join(""):`<p style="color:rgba(255,255,255,0.35);font-size:0.9rem;">${lang==="en"?"No upcoming matches scheduled.":"Aucun match à venir pour le moment."}</p>`;
+      document.getElementById("past").innerHTML=past.length?past.map(m=>card(m,"past")).join(""):`<p style="color:rgba(255,255,255,0.35);font-size:0.9rem;">${lang==="en"?"No past matches yet.":"Aucun match passé pour le moment."}</p>`;
+    }
+    fetch("matchs.csv").then(r=>r.text()).then(text=>{
+      allMatches=parseCSV(text);
+      const lang=localStorage.getItem("lang")||"fr";
+      renderMatches(lang);
+    }).catch(()=>{document.getElementById("loading").textContent="Impossible de charger le fichier matchs.csv";});
+    (function(){const l=localStorage.getItem("lang")||"fr";if(l!=="fr"){document.querySelectorAll("[data-fr]").forEach(el=>{if(el.getAttribute("data-"+l))el.innerHTML=el.getAttribute("data-"+l)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));const btns=document.querySelectorAll(".lang-btn");if(l==="en"&&btns[1])btns[1].classList.add("active");document.documentElement.lang=l;}})();
+  </script>
+</body>
+</html>

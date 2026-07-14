@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Goodies – OM Toronto Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:#0a1628;color:#fff;}
+    .topbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:52px;background:rgba(10,22,40,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,168,76,0.2);}
+    .topbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .topbar-logo img{width:32px;height:32px;border-radius:50%;object-fit:contain;}
+    .topbar-logo span{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#fff;letter-spacing:0.05em;}
+    .topbar-logo span em{color:#c9a84c;font-style:normal;}
+    nav{display:flex;align-items:center;gap:0.25rem;}
+    .nav-link{color:rgba(255,255,255,0.55);font-size:0.8rem;font-weight:500;text-decoration:none;padding:0.35rem 0.65rem;border-radius:6px;transition:color 0.15s,background 0.15s;white-space:nowrap;}
+    .nav-link:hover{color:#fff;background:rgba(255,255,255,0.06);}
+    .nav-link.active{color:#c9a84c;}
+    .lang-bar{display:flex;gap:3px;margin-left:0.75rem;padding-left:0.75rem;border-left:1px solid rgba(255,255,255,0.1);}
+    .lang-btn{background:none;border:none;cursor:pointer;font-size:1rem;padding:2px 3px;border-radius:4px;opacity:0.45;transition:opacity 0.15s,transform 0.15s;}
+    .lang-btn:hover{opacity:0.85;transform:scale(1.15);}
+    .lang-btn.active{opacity:1;transform:scale(1.15);}
+    .page-body{padding-top:52px;}
+    .page-header{background:linear-gradient(160deg,#0d1f3c 0%,#1a3260 50%,#0d1f3c 100%);padding:2.5rem 1.5rem 2rem;text-align:center;border-bottom:3px solid #c9a84c;}
+    .page-header h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3rem);letter-spacing:0.08em;color:#fff;}
+    .page-header h1 span{color:#c9a84c;}
+    .page-header p{color:rgba(255,255,255,0.5);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;margin-top:0.4rem;}
+    .section{padding:2rem 1.5rem;background:#091424;}
+    .goodies-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;max-width:900px;margin:0 auto;}
+    .goodie-card{background:#0d1f3c;border:1px solid rgba(201,168,76,0.2);border-radius:16px;overflow:hidden;transition:transform 0.15s,box-shadow 0.15s;}
+    .goodie-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,0.4);}
+    .goodie-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#1a3260;}
+    .goodie-card .img-placeholder{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#1a3260,#0d1f3c);display:flex;align-items:center;justify-content:center;font-size:3rem;}
+    .goodie-info{padding:1rem 1.1rem 1.25rem;}
+    .goodie-name{font-size:1rem;font-weight:600;color:#fff;margin-bottom:0.25rem;}
+    .goodie-desc{font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:0.75rem;}
+    .goodie-price{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#c9a84c;margin-bottom:0.75rem;}
+    .btn-order{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,0.15);color:#c9a84c;border:1px solid rgba(201,168,76,0.4);font-size:0.85rem;font-weight:600;padding:0.55rem 1.1rem;border-radius:8px;text-decoration:none;transition:background 0.15s,border-color 0.15s;}
+    .btn-order:hover{background:rgba(201,168,76,0.25);border-color:#c9a84c;}
+    .intro-text{max-width:600px;margin:0 auto 2rem;text-align:center;color:rgba(255,255,255,0.55);font-size:0.9rem;line-height:1.6;}
+    .footer{background:#060f1c;padding:1.25rem;text-align:center;border-top:1px solid rgba(255,255,255,0.06);}
+    .footer p{font-size:0.72rem;color:rgba(255,255,255,0.25);letter-spacing:0.04em;}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="topbar-logo" href="index.html"><img src="logo.png" alt="logo"/><span>OM <em>Toronto</em></span></a>
+    <nav>
+      <a class="nav-link" href="index.html" data-fr="Accueil" data-en="Home">Accueil</a>
+      <a class="nav-link" href="calendrier.html" data-fr="Calendrier" data-en="Schedule">Calendrier</a>
+      <a class="nav-link" href="galerie.html" data-fr="Galerie" data-en="Gallery">Galerie</a>
+      <a class="nav-link active" href="goodies.html" data-fr="Goodies" data-en="Goodies">Goodies</a>
+      <div class="lang-bar">
+        <button class="lang-btn active" onclick="setLang('fr',event)">🇫🇷</button>
+        <button class="lang-btn" onclick="setLang('en',event)">🇬🇧</button>
+      </div>
+    </nav>
+  </div>
+  <div class="page-body">
+    <div class="page-header">
+      <h1 data-fr="Nos <span>Goodies</span>" data-en="Our <span>Goodies</span>">Nos <span>Goodies</span></h1>
+      <p data-fr="Représente le club à Toronto et partout dans le monde" data-en="Represent the club in Toronto and around the world">Représente le club à Toronto et partout dans le monde</p>
+    </div>
+    <div class="section">
+      <p class="intro-text" data-fr="Pour commander, contactez-nous directement par email. Livraison possible à Toronto ou récupération au PJ O'Brien lors des matchs." data-en="To order, contact us directly by email. Delivery available in Toronto or pick up at PJ O'Brien on match days.">Pour commander, contactez-nous directement par email. Livraison possible à Toronto ou récupération au PJ O'Brien lors des matchs.</p>
+      <div id="loading" style="text-align:center;padding:2rem;color:rgba(255,255,255,0.4);">Chargement…</div>
+      <div class="goodies-grid" id="grid"></div>
+    </div>
+    <footer class="footer">
+      <p>© 2023 OM Toronto Club · <span data-fr="Site non officiel" data-en="Unofficial website">Site non officiel</span> · Not affiliated with Olympique de Marseille</p>
+    </footer>
+  </div>
+  <script>
+    function setLang(lang,event){document.querySelectorAll("[data-fr]").forEach(el=>{if(el.getAttribute("data-"+lang))el.innerHTML=el.getAttribute("data-"+lang)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));event.currentTarget.classList.add("active");document.documentElement.lang=lang;localStorage.setItem("lang",lang);}
+    fetch("goodies.json").then(r=>r.json()).then(data=>{
+      document.getElementById("loading").style.display="none";
+      const grid=document.getElementById("grid");
+      const lang=localStorage.getItem("lang")||"fr";
+      data.forEach(g=>{
+        const div=document.createElement("div");div.className="goodie-card";
+        const imgHtml=g.photo?`<img src="photos/${g.photo}" alt="${g.nom}"/>`:`<div class="img-placeholder">👕</div>`;
+        const desc=lang==="en"&&g.desc_en?g.desc_en:g.description;
+        div.innerHTML=`${imgHtml}<div class="goodie-info"><div class="goodie-name">${g.nom}</div><div class="goodie-desc">${desc}</div><div class="goodie-price">${g.prix}</div><a class="btn-order" href="mailto:martin.delhomme@gmail.com?subject=Commande: ${encodeURIComponent(g.nom)}">✉ <span data-fr="Commander" data-en="Order">Commander</span></a></div>`;
+        grid.appendChild(div);
+      });
+    }).catch(()=>{document.getElementById("loading").textContent="Aucun article disponible pour le moment.";});
+    (function(){const l=localStorage.getItem("lang")||"fr";if(l!=="fr"){document.querySelectorAll("[data-fr]").forEach(el=>{if(el.getAttribute("data-"+l))el.innerHTML=el.getAttribute("data-"+l)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));const btns=document.querySelectorAll(".lang-btn");if(l==="en"&&btns[1])btns[1].classList.add("active");document.documentElement.lang=l;}})();
+  </script>
+</body>
+</html>
