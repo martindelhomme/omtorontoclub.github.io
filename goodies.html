@@ -79,7 +79,7 @@
       const lang=localStorage.getItem("lang")||"fr";
       data.forEach(g=>{
         const div=document.createElement("div");div.className="goodie-card";
-        const imgHtml=g.photo?`<img src="photos/${g.photo}" alt="${g.nom}"/>`:`<div class="img-placeholder">👕</div>`;
+        const imgHtml=g.photo?`<img src="${g.photo}" alt="${g.nom}"/>`:`<div class="img-placeholder">👕</div>`;
         const desc=lang==="en"&&g.desc_en?g.desc_en:g.description;
         div.innerHTML=`${imgHtml}<div class="goodie-info"><div class="goodie-name">${g.nom}</div><div class="goodie-desc">${desc}</div><div class="goodie-price">${g.prix}</div><a class="btn-order" href="mailto:martin.delhomme@gmail.com?subject=Commande: ${encodeURIComponent(g.nom)}">✉ <span data-fr="Commander" data-en="Order">Commander</span></a></div>`;
         grid.appendChild(div);
