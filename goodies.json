@@ -1,17 +1,23 @@
 [
   {
     "nom": "Hoodie Blanc",
+    "description": "Hoodie officiel OM Toronto Club.",
+    "desc_en": "Official OM Toronto Club hoodie.",
     "prix": "75 CAD",
     "photo": "Hoodie #1.jpg"
   },
   {
     "nom": "Hoodie Bleu",
+    "description": "Hoodie officiel OM Toronto Club.",
+    "desc_en": "Official OM Toronto Club hoodie.",
     "prix": "75 CAD",
     "photo": "Hoodie #2.jpg"
   },
   {
     "nom": "Hoodie Noir",
+    "description": "Hoodie officiel OM Toronto Club.",
+    "desc_en": "Official OM Toronto Club hoodie.",
     "prix": "75 CAD",
     "photo": "Hoodie #3.jpg"
-  },
+  }
 ]
