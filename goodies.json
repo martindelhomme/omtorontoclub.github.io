@@ -1,16 +1,17 @@
 [
   {
-    "nom": "Écharpe OM Toronto Club",
-    "description": "Écharpe officielle du club, aux couleurs bleu et or. Idéale pour les jours de match.",
-    "desc_en": "Official club scarf in blue and gold. Perfect for match days.",
-    "prix": "25 CAD",
-    "photo": ""
+    "nom": "Hoodie Blanc",
+    "prix": "75 CAD",
+    "photo": "Hoodie #1.jpg"
   },
   {
-    "nom": "T-shirt OM Toronto Club",
-    "description": "T-shirt avec le logo du raton laveur. Coupe unisexe, disponible en S, M, L, XL.",
-    "desc_en": "T-shirt featuring the raccoon logo. Unisex fit, available in S, M, L, XL.",
-    "prix": "35 CAD",
-    "photo": ""
-  }
+    "nom": "Hoodie Bleu",
+    "prix": "75 CAD",
+    "photo": "Hoodie #2.jpg"
+  },
+  {
+    "nom": "Hoodie Noir",
+    "prix": "75 CAD",
+    "photo": "Hoodie #3.jpg"
+  },
 ]
