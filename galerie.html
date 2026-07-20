@@ -26,28 +26,36 @@
     .page-header h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3rem);letter-spacing:0.08em;color:#fff;}
     .page-header h1 span{color:#c9a84c;}
     .page-header p{color:rgba(255,255,255,0.5);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;margin-top:0.4rem;}
-    .section{padding:2rem 1.5rem;background:#091424;}
-    .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;max-width:1000px;margin:0 auto;}
-    .photo-item{border-radius:12px;overflow:hidden;background:#0d1f3c;border:1px solid rgba(201,168,76,0.15);cursor:pointer;transition:transform 0.15s,box-shadow 0.15s;}
-    .photo-item:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,0.5);}
-    .photo-item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
-    .photo-caption{padding:0.6rem 0.85rem;}
-    .photo-caption .legende{font-size:0.85rem;font-weight:500;color:#fff;}
-    .photo-caption .meta{font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:2px;}
-    /* LIGHTBOX */
-    .lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;flex-direction:column;}
-    .lightbox.open{display:flex;}
-    .lightbox img{max-width:90vw;max-height:80vh;border-radius:8px;object-fit:contain;}
-    .lightbox-caption{margin-top:1rem;text-align:center;}
-    .lightbox-caption .legende{font-size:1rem;font-weight:500;color:#fff;}
-    .lightbox-caption .meta{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:4px;}
-    .lightbox-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;opacity:0.6;transition:opacity 0.15s;}
-    .lightbox-close:hover{opacity:1;}
-    .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:1.5rem;padding:0.75rem 1rem;cursor:pointer;border-radius:8px;transition:background 0.15s;}
-    .lightbox-nav:hover{background:rgba(255,255,255,0.2);}
-    .lightbox-prev{left:1rem;}
-    .lightbox-next{right:1rem;}
-    #loading{text-align:center;padding:2rem;color:rgba(255,255,255,0.4);}
+
+    /* CAROUSEL */
+    .carousel-section{background:#091424;padding:2.5rem 1.5rem;}
+    .carousel-wrap{position:relative;max-width:800px;margin:0 auto;}
+    .carousel-track{position:relative;width:100%;border-radius:16px;overflow:hidden;background:#0d1f3c;border:1px solid rgba(201,168,76,0.2);}
+    .carousel-slide{display:none;position:relative;}
+    .carousel-slide.active{display:block;}
+    .carousel-slide img{width:100%;max-height:500px;object-fit:cover;display:block;}
+    .carousel-caption{position:absolute;bottom:0;left:0;right:0;padding:1rem 1.25rem;background:linear-gradient(transparent,rgba(6,15,28,0.95));text-align:left;}
+    .carousel-caption .legende{font-size:0.95rem;font-weight:600;color:#fff;}
+    .carousel-caption .meta{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:3px;}
+
+    /* ARROWS */
+    .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(10,22,40,0.7);border:1px solid rgba(201,168,76,0.3);color:#fff;font-size:1.4rem;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s,border-color 0.15s;z-index:10;}
+    .carousel-btn:hover{background:rgba(201,168,76,0.2);border-color:#c9a84c;}
+    .carousel-prev{left:-20px;}
+    .carousel-next{right:-20px;}
+    @media(max-width:600px){.carousel-prev{left:6px;}.carousel-next{right:6px;}}
+
+    /* DOTS */
+    .carousel-dots{display:flex;justify-content:center;gap:6px;margin-top:1rem;}
+    .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);border:none;cursor:pointer;padding:0;transition:background 0.2s,transform 0.2s;}
+    .dot.active{background:#c9a84c;transform:scale(1.3);}
+
+    /* COUNTER */
+    .carousel-counter{text-align:center;margin-top:0.6rem;font-size:0.75rem;color:rgba(255,255,255,0.35);letter-spacing:0.05em;}
+
+    /* LOADING */
+    #loading{text-align:center;padding:3rem;color:rgba(255,255,255,0.4);}
+
     .footer{background:#060f1c;padding:1.25rem;text-align:center;border-top:1px solid rgba(255,255,255,0.06);}
     .footer p{font-size:0.72rem;color:rgba(255,255,255,0.25);letter-spacing:0.04em;}
   </style>
@@ -66,48 +74,79 @@
       </div>
     </nav>
   </div>
+
   <div class="page-body">
     <div class="page-header">
       <h1 data-fr="Notre <span>Galerie</span>" data-en="Our <span>Gallery</span>">Notre <span>Galerie</span></h1>
-      <p data-fr="Photos de nos rassemblements et matchs" data-en="Photos from our gatherings and matches">Photos de nos rassemblements et matchs</p>
+      <p data-fr="Nos meilleurs moments ensemble" data-en="Our best moments together">Nos meilleurs moments ensemble</p>
     </div>
-    <div class="section">
+
+    <div class="carousel-section">
       <div id="loading">Chargement des photos…</div>
-      <div class="photo-grid" id="grid"></div>
+      <div class="carousel-wrap" id="carousel-wrap" style="display:none;">
+        <div class="carousel-track" id="track"></div>
+        <button class="carousel-btn carousel-prev" onclick="move(-1)">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="move(1)">&#8250;</button>
+      </div>
+      <div class="carousel-dots" id="dots"></div>
+      <div class="carousel-counter" id="counter"></div>
     </div>
+
     <footer class="footer">
       <p>© 2023 OM Toronto Club · <span data-fr="Site non officiel" data-en="Unofficial website">Site non officiel</span> · Not affiliated with Olympique de Marseille</p>
     </footer>
   </div>
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-    <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">‹</button>
-    <img id="lb-img" src="" alt=""/>
-    <div class="lightbox-caption"><div class="legende" id="lb-legend"></div><div class="meta" id="lb-meta"></div></div>
-    <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">›</button>
-  </div>
+
   <script>
     function setLang(lang,event){document.querySelectorAll("[data-fr]").forEach(el=>{if(el.getAttribute("data-"+lang))el.innerHTML=el.getAttribute("data-"+lang)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));event.currentTarget.classList.add("active");document.documentElement.lang=lang;localStorage.setItem("lang",lang);}
-    let photos=[]; let currentIdx=0;
-    function openLightbox(i){currentIdx=i;const p=photos[i];document.getElementById("lb-img").src="photos/"+p.fichier;document.getElementById("lb-legend").textContent=p.legende;document.getElementById("lb-meta").textContent=(p.match?p.match+" · ":"")+p.date;document.getElementById("lightbox").classList.add("open");}
-    function closeLightbox(){document.getElementById("lightbox").classList.remove("open");}
-    function navLightbox(dir){currentIdx=(currentIdx+dir+photos.length)%photos.length;openLightbox(currentIdx);}
-    document.getElementById("lightbox").addEventListener("click",function(e){if(e.target===this)closeLightbox();});
-    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLightbox();if(e.key==="ArrowRight")navLightbox(1);if(e.key==="ArrowLeft")navLightbox(-1);});
-    fetch("photos.json").then(r=>r.json()).then(data=>{
-      photos=data;
-      document.getElementById("loading").style.display="none";
-      const grid=document.getElementById("grid");
-      data.forEach((p,i)=>{
-        const div=document.createElement("div");
-        div.className="photo-item";
-        div.onclick=()=>openLightbox(i);
-        div.innerHTML=`<img src="photos/${p.fichier}" alt="${p.legende}" loading="lazy"/><div class="photo-caption"><div class="legende">${p.legende}</div><div class="meta">${p.match?p.match+" · ":""}${p.date}</div></div>`;
-        grid.appendChild(div);
-      });
-    }).catch(()=>{document.getElementById("loading").textContent="Aucune photo disponible pour le moment.";});
     (function(){const l=localStorage.getItem("lang")||"fr";if(l!=="fr"){document.querySelectorAll("[data-fr]").forEach(el=>{if(el.getAttribute("data-"+l))el.innerHTML=el.getAttribute("data-"+l)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));const btns=document.querySelectorAll(".lang-btn");if(l==="en"&&btns[1])btns[1].classList.add("active");document.documentElement.lang=l;}})();
+
+    let current=0, total=0, timer=null;
+
+    function goTo(i){
+      document.querySelectorAll(".carousel-slide").forEach((s,idx)=>{s.classList.toggle("active",idx===i);});
+      document.querySelectorAll(".dot").forEach((d,idx)=>{d.classList.toggle("active",idx===i);});
+      current=i;
+      document.getElementById("counter").textContent=(i+1)+" / "+total;
+    }
+
+    function move(dir){
+      clearInterval(timer);
+      goTo((current+dir+total)%total);
+      startAuto();
+    }
+
+    function startAuto(){
+      timer=setInterval(()=>goTo((current+1)%total),4000);
+    }
+
+    // Swipe support
+    let touchStartX=0;
+    document.addEventListener("touchstart",e=>touchStartX=e.touches[0].clientX,{passive:true});
+    document.addEventListener("touchend",e=>{
+      const dx=e.changedTouches[0].clientX-touchStartX;
+      if(Math.abs(dx)>40)move(dx<0?1:-1);
+    },{passive:true});
+
+    fetch("photos.json").then(r=>r.json()).then(photos=>{
+      total=photos.length;
+      document.getElementById("loading").style.display="none";
+      document.getElementById("carousel-wrap").style.display="block";
+      const track=document.getElementById("track");
+      const dots=document.getElementById("dots");
+      photos.forEach((p,i)=>{
+        const slide=document.createElement("div");
+        slide.className="carousel-slide"+(i===0?" active":"");
+        slide.innerHTML=`<img src="${p.fichier}" alt="${p.legende}" loading="lazy"/><div class="carousel-caption"><div class="legende">${p.legende}</div><div class="meta">${p.match?p.match+" · ":""}${p.date}</div></div>`;
+        track.appendChild(slide);
+        const dot=document.createElement("button");
+        dot.className="dot"+(i===0?" active":"");
+        dot.onclick=()=>{clearInterval(timer);goTo(i);startAuto();};
+        dots.appendChild(dot);
+      });
+      document.getElementById("counter").textContent="1 / "+total;
+      startAuto();
+    }).catch(()=>{document.getElementById("loading").textContent="Aucune photo disponible pour le moment.";});
   </script>
 </body>
 </html>
