@@ -30,22 +30,29 @@
     .section.dark{background:#091424;}
     .section-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.1em;color:#c9a84c;margin-bottom:1rem;text-transform:uppercase;}
     .divider{width:40px;height:2px;background:#c9a84c;margin:0 0 1.5rem;border-radius:1px;}
-    .match-card{background:#0d1f3c;border:1px solid rgba(201,168,76,0.2);border-radius:14px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:1rem;max-width:700px;}
+    .match-card{background:#0d1f3c;border:1px solid rgba(201,168,76,0.2);border-radius:14px;padding:1rem 1.25rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem;max-width:700px;}
     .match-card.upcoming{border-left:3px solid #c9a84c;}
     .match-card.past{border-left:3px solid rgba(255,255,255,0.15);opacity:0.75;}
-    .match-date{min-width:70px;text-align:center;}
-    .match-date .day{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#c9a84c;line-height:1;}
-    .match-date .month{font-size:0.7rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;}
+    .match-date{min-width:48px;text-align:center;flex-shrink:0;}
+    .match-date .day{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#c9a84c;line-height:1;}
+    .match-date .month{font-size:0.65rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;}
     .match-divider{width:1px;height:50px;background:rgba(255,255,255,0.1);flex-shrink:0;}
-    .match-info{flex:1;}
-    .match-teams{font-size:1rem;font-weight:600;color:#fff;margin-bottom:0.2rem;}
-    .match-teams .vs{color:rgba(255,255,255,0.35);font-weight:400;margin:0 6px;font-size:0.85rem;}
-    .match-meta{font-size:0.75rem;color:rgba(255,255,255,0.45);}
-    .match-meta span{margin-right:8px;}
-    .match-time{text-align:right;min-width:80px;}
-    .match-time .time-fr{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#fff;}
-    .match-time .time-to{font-size:0.7rem;color:rgba(255,255,255,0.4);}
-    .match-score{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#c9a84c;text-align:right;min-width:80px;}
+    .match-info{flex:1;min-width:0;}
+    .match-teams{font-size:0.9rem;font-weight:600;color:#fff;margin-bottom:0.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .match-teams .vs{color:rgba(255,255,255,0.35);font-weight:400;margin:0 4px;font-size:0.8rem;}
+    .match-meta{font-size:0.7rem;color:rgba(255,255,255,0.45);}
+    .match-meta span{margin-right:6px;}
+    .match-time{text-align:right;flex-shrink:0;}
+    .match-time .time-to{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#fff;line-height:1;}
+    .match-time .time-fr{font-size:0.65rem;color:rgba(255,255,255,0.4);margin-top:2px;}
+    .match-score{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#c9a84c;text-align:right;flex-shrink:0;}
+    @media(max-width:500px){
+      .match-date{min-width:36px;}.match-date .day{font-size:1.1rem;}
+      .match-teams{font-size:0.82rem;}.match-time .time-to{font-size:1rem;}
+      .match-score{font-size:1.1rem;}.match-divider{display:none;}
+      .match-card{padding:0.75rem 0.85rem;gap:0.5rem;}
+      .badge-upcoming{display:none;}
+    }
     .badge-upcoming{display:inline-block;background:rgba(201,168,76,0.15);color:#c9a84c;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-left:8px;vertical-align:middle;}
     #loading{text-align:center;padding:2rem;color:rgba(255,255,255,0.4);font-size:0.9rem;}
     .footer{background:#060f1c;padding:1.25rem;text-align:center;border-top:1px solid rgba(255,255,255,0.06);}
@@ -112,7 +119,7 @@
         const teams=`<span class="match-teams">${m.domicile}<span class="vs">vs</span>${m.exterieur}${type==="upcoming"?'<span class="badge-upcoming">'+(lang==="en"?"upcoming":"à venir")+"</span>":""}</span>`;
         const meta=`<div class="match-meta"><span>📅 ${day} ${mon} ${d.getFullYear()}</span><span>🏆 ${m.competition}</span></div>`;
         const timeOrScore=type==="upcoming"
-          ?`<div class="match-time"><div class="time-fr">${m.heure_fr}</div><div class="time-to">🇨🇦 ${m.heure_toronto} ET</div></div>`
+          ?`<div class="match-time"><div class="time-to">🇨🇦 ${m.heure_toronto} ET</div><div class="time-fr">🇫🇷 ${m.heure_fr}</div></div>`
           :`<div class="match-score">${m.score||"–"}</div>`;
         return `<div class="match-card ${type}"><div class="match-date"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="match-divider"></div><div class="match-info">${teams}${meta}</div>${timeOrScore}</div>`;
       }
