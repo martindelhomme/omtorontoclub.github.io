@@ -130,7 +130,7 @@
       allMatches=parseCSV(text);
       const lang=localStorage.getItem("lang")||"fr";
       renderMatches(lang);
-    }).catch(()=>{document.getElementById("loading").textContent="Impossible de charger le fichier matchs.csv";});
+    }).catch(()=>{document.getElementById("loading").textContent="Impossible de recharger le fichier matchs.csv";});
     (function(){const l=localStorage.getItem("lang")||"fr";if(l!=="fr"){document.querySelectorAll("[data-fr]").forEach(el=>{if(el.getAttribute("data-"+l))el.innerHTML=el.getAttribute("data-"+l)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));const btns=document.querySelectorAll(".lang-btn");if(l==="en"&&btns[1])btns[1].classList.add("active");document.documentElement.lang=l;}})();
   </script>
 </body>
