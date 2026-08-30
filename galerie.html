@@ -152,7 +152,7 @@
       photos.forEach((p,i)=>{
         const slide=document.createElement("div");
         slide.className="carousel-slide"+(i===0?" active":"");
-        slide.innerHTML=`<img src="${p.fichier}" alt="${p.legende}" loading="lazy"/><div class="carousel-caption"><div class="legende">${p.legende}</div><div class="meta">${p.match?p.match+" · ":""}${p.date}</div></div>`;
+        slide.innerHTML=`<img src="Photos/${p.fichier}" alt="${p.legende}" loading="lazy"/><div class="carousel-caption"><div class="legende">${p.legende}</div><div class="meta">${p.match?p.match+" · ":""}${p.date}</div></div>`;
         track.appendChild(slide);
         const dot=document.createElement("button");
         dot.className="dot"+(i===0?" active":"");

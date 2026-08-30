@@ -125,8 +125,15 @@
         const d=new Date(m.date+"T12:00:00");
         const day=d.getDate();
         const mon=months[d.getMonth()];
+        const dowIdx=d.getDay();
+        const DAYS_FR=["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"];
+        const DAYS_EN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+        const DAYS_FULL_FR=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+        const DAYS_FULL_EN=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        const isKey=[0,3,6].includes(dowIdx);
+        const dayLabel=isKey?(lang==="en"?DAYS_FULL_EN[dowIdx]:DAYS_FULL_FR[dowIdx]):(lang==="en"?DAYS_EN[dowIdx]:DAYS_FR[dowIdx]);
         const teams=`<span class="match-teams">${m.domicile}<span class="vs">vs</span>${m.exterieur}${type==="upcoming"?'<span class="badge-upcoming">'+(lang==="en"?"upcoming":"à venir")+"</span>":""}</span>`;
-        const meta=`<div class="match-meta"><span>📅 ${day} ${mon} ${d.getFullYear()}</span><span>🏆 ${m.competition}</span></div>`;
+        const meta=`<div class="match-meta"><span>📅 ${dayLabel} ${day} ${mon} ${d.getFullYear()}</span><span>🏆 ${m.competition}</span></div>`;
         const timeOrScore=type==="upcoming"
           ?`<div class="match-time"><div class="time-to">🇨🇦 ${m.heure_toronto} ET</div><div class="time-fr">🇫🇷 ${m.heure_fr}</div></div>`
           :`<div class="match-score">${m.score||"–"}</div>`;
