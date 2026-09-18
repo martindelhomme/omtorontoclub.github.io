@@ -21,7 +21,7 @@
     .topbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
     .topbar-logo img{width:32px;height:32px;border-radius:50%;object-fit:contain;}
     .topbar-logo span{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#fff;letter-spacing:0.05em;}
-    .topbar-logo span em{color:#c9a84c;font-style:normal;} @media(max-width:600px){.topbar-logo{display:none!important;}}
+    .topbar-logo span em{color:#c9a84c;font-style:normal;} @media(max-width:600px){.topbar-logo{display:none!important;}.topbar{justify-content:center;}nav{justify-content:center;gap:0;}.nav-link{font-size:0.72rem;padding:0.35rem 0.4rem;}.lang-bar{margin-left:0.4rem;padding-left:0.4rem;}}
     nav{display:flex;align-items:center;gap:0.25rem;}
     .nav-link{color:rgba(255,255,255,0.55);font-size:0.8rem;font-weight:500;text-decoration:none;padding:0.35rem 0.65rem;border-radius:6px;transition:color 0.15s,background 0.15s;white-space:nowrap;}
     .nav-link:hover{color:#fff;background:rgba(255,255,255,0.06);}
@@ -74,9 +74,9 @@
     <a class="topbar-logo" href="index.html"><img src="logo.png" alt="logo"/><span>OM <em>Toronto</em></span></a>
     <nav>
       <a class="nav-link" href="index.html" data-fr="Accueil" data-en="Home">Accueil</a>
-      <a class="nav-link" href="calendrier.html" data-fr="Calendrier" data-en="Schedule">Calendrier</a>
+      <a class="nav-link" href="calendrier.html" data-fr="Agenda" data-en="Agenda">Agenda</a>
       <a class="nav-link active" href="galerie.html" data-fr="Galerie" data-en="Gallery">Galerie</a>
-      <a class="nav-link" href="goodies.html" data-fr="Goodies" data-en="Goodies">Goodies</a>
+      <a class="nav-link" href="medias.html" data-fr="Médias" data-en="Media">Médias</a><a class="nav-link" href="goodies.html" data-fr="Goodies" data-en="Goodies">Goodies</a>
       <div class="lang-bar">
         <button class="lang-btn active" onclick="setLang('fr',event)">🇫🇷</button>
         <button class="lang-btn" onclick="setLang('en',event)">🇬🇧</button>
