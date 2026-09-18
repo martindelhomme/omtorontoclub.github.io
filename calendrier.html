@@ -11,7 +11,7 @@
   gtag('config', 'G-S98TKLW8ZB');
 </script>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Calendrier - OM Toronto Club</title>
+  <title>Agenda – OM Toronto Club</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
@@ -73,9 +73,9 @@
     <a class="topbar-logo" href="index.html"><img src="logo.png" alt="logo"/><span>OM <em>Toronto</em></span></a>
     <nav>
       <a class="nav-link" href="index.html" data-fr="Accueil" data-en="Home">Accueil</a>
-      <a class="nav-link active" href="calendrier.html" data-fr="Calendrier" data-en="Schedule">Calendrier</a>
+      <a class="nav-link active" href="calendrier.html" data-fr="Agenda" data-en="Agenda">Agenda</a>
       <a class="nav-link" href="galerie.html" data-fr="Galerie" data-en="Gallery">Galerie</a>
-      <a class="nav-link" href="goodies.html" data-fr="Goodies" data-en="Goodies">Goodies</a>
+      <a class="nav-link" href="medias.html" data-fr="Médias" data-en="Media">Médias</a><a class="nav-link" href="goodies.html" data-fr="Goodies" data-en="Goodies">Goodies</a>
       <div class="lang-bar">
         <button class="lang-btn active" onclick="setLang('fr',event)">🇫🇷</button>
         <button class="lang-btn" onclick="setLang('en',event)">🇬🇧</button>
@@ -84,16 +84,21 @@
   </div>
   <div class="page-body">
     <div class="page-header">
-      <h1 data-fr="Calendrier des <span>matchs</span>" data-en="Match <span>Schedule</span>">Calendrier des <span>matchs</span></h1>
-      <p data-fr="Heures affichées en heure de Toronto (ET)" data-en="Times displayed in Toronto time (ET)">Heures affichées en heure de Toronto (ET)</p>
+      <h1 data-fr="Agenda & <span>Événements</span>" data-en="Schedule & <span>Events</span>">Agenda & <span>Événements</span></h1>
+      <p data-fr="Matchs, sorties & événements du club" data-en="Matches, outings & club events">Matchs, sorties & événements du club</p>
     </div>
     <div class="section dark">
       <div class="section-title" data-fr="⚽ Prochains matchs" data-en="⚽ Upcoming matches">⚽ Prochains matchs</div>
       <div class="divider"></div>
       <div id="upcoming"><div id="loading">Chargement…</div></div>
     </div>
+    <div class="section" style="background:#0a1628;border-top:1px solid rgba(201,168,76,0.15);">
+      <div class="section-title" data-fr="🗓️ Événements à venir" data-en="🗓️ Upcoming events">🗓️ Événements à venir</div>
+      <div class="divider"></div>
+      <div id="events-upcoming"></div>
+    </div>
     <div class="section" style="background:#0d1f3c;border-top:1px solid rgba(201,168,76,0.1);">
-      <div class="section-title" data-fr="🏁 Derniers résultats" data-en="🏁 Recent results">🏁 Derniers résultats</div>
+      <div class="section-title" data-fr="🏁 Matchs & événements passés" data-en="🏁 Past matches & events">🏁 Matchs & événements passés</div>
       <div class="divider"></div>
       <div id="past"></div>
     </div>
@@ -102,7 +107,7 @@
     </footer>
   </div>
   <script>
-    function setLang(lang,event){document.querySelectorAll("[data-fr]").forEach(el=>{if(el.getAttribute("data-"+lang))el.innerHTML=el.getAttribute("data-"+lang)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));event.currentTarget.classList.add("active");document.documentElement.lang=lang;localStorage.setItem("lang",lang);renderMatches(lang);}
+    function setLang(lang,event){document.querySelectorAll("[data-fr]").forEach(el=>{if(el.getAttribute("data-"+lang))el.innerHTML=el.getAttribute("data-"+lang)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));event.currentTarget.classList.add("active");document.documentElement.lang=lang;localStorage.setItem("lang",lang);renderMatches(lang);renderEvents(lang);}
     const MONTHS_FR=["Jan","Fév","Mar","Avr","Mai","Jun","Jul","Aoû","Sep","Oct","Nov","Déc"];
     const MONTHS_EN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     let allMatches=[];
@@ -142,10 +147,35 @@
       document.getElementById("upcoming").innerHTML=upcoming.length?upcoming.map(m=>card(m,"upcoming")).join(""):`<p style="color:rgba(255,255,255,0.35);font-size:0.9rem;">${lang==="en"?"No upcoming matches scheduled.":"Aucun match à venir pour le moment."}</p>`;
       document.getElementById("past").innerHTML=past.length?past.map(m=>card(m,"past")).join(""):`<p style="color:rgba(255,255,255,0.35);font-size:0.9rem;">${lang==="en"?"No past matches yet.":"Aucun match passé pour le moment."}</p>`;
     }
+    const EVENTS = [
+      // UPCOMING EVENTS — add yours here
+      // { date:"2025-10-15", titre:"Concours de pétanque", titre_en:"Pétanque tournament", desc:"Rejoignez-nous pour notre tournoi annuel de pétanque !", desc_en:"Join us for our annual pétanque tournament!", lieu:"PJ O'Brien", lien:"", statut:"a_venir" },
+    ];
+    const PAST_EVENTS = [
+      // PAST EVENTS — add yours here
+      // { date:"2025-06-01", titre:"Soirée de fin de saison", titre_en:"End of season party", desc:"", desc_en:"", lieu:"PJ O'Brien", lien:"", statut:"termine" },
+    ];
+    function renderEvents(lang){
+      const MONTHS_E=lang==="en"?MONTHS_EN:MONTHS_FR;
+      function evCard(e, past){
+        const d=new Date(e.date+"T12:00:00");
+        const day=d.getDate(); const mon=MONTHS_E[d.getMonth()];
+        const titre=lang==="en"&&e.titre_en?e.titre_en:e.titre;
+        const desc=lang==="en"&&e.desc_en?e.desc_en:e.desc;
+        const linkHtml=e.lien?`<a class="event-link" href="${e.lien}" target="_blank" rel="noopener">🔗 ${lang==="en"?"More info":"Plus d'infos"}</a>`:"";
+        const lieuHtml=e.lieu?`<span style="font-size:0.72rem;color:rgba(255,255,255,0.35);">📍 ${e.lieu}</span> `:""
+        return `<div class="event-card${past?" past":""}"><div class="event-date-col"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="event-body"><div class="event-title">${titre}</div>${desc?`<div class="event-desc">${desc}</div>`:""}<div>${lieuHtml}${linkHtml}</div></div></div>`;
+      }
+      const upEl=document.getElementById("events-upcoming");
+      if(EVENTS.length){upEl.innerHTML=EVENTS.map(e=>evCard(e,false)).join("");}
+      else{upEl.innerHTML=`<p style="color:rgba(255,255,255,0.35);font-size:0.9rem;">${lang==="en"?"No upcoming events.":"Aucun événement à venir pour le moment."}</p>`;}
+    }
+
     fetch("matchs.csv").then(r=>r.text()).then(text=>{
       allMatches=parseCSV(text);
       const lang=localStorage.getItem("lang")||"fr";
       renderMatches(lang);
+      renderEvents(lang);
     }).catch(()=>{document.getElementById("loading").textContent="Impossible de recharger le fichier matchs.csv";});
     (function(){const l=localStorage.getItem("lang")||"fr";if(l!=="fr"){document.querySelectorAll("[data-fr]").forEach(el=>{if(el.getAttribute("data-"+l))el.innerHTML=el.getAttribute("data-"+l)});document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));const btns=document.querySelectorAll(".lang-btn");if(l==="en"&&btns[1])btns[1].classList.add("active");document.documentElement.lang=l;}})();
   </script>
