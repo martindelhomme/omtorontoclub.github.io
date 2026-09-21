@@ -149,11 +149,36 @@
     }
     const EVENTS = [
       // UPCOMING EVENTS — add yours here
-      // { date:"2025-10-15", titre:"Concours de pétanque", titre_en:"Pétanque tournament", desc:"Rejoignez-nous pour notre tournoi annuel de pétanque !", desc_en:"Join us for our annual pétanque tournament!", lieu:"PJ O'Brien", lien:"", statut:"a_venir" },
+      // { date:"2026-06-01", titre:"Concours de pétanque", titre_en:"Pétanque tournament", desc:"Rejoignez-nous !", desc_en:"Join us!", lieu:"PJ O'Brien", lien:"" },
     ];
     const PAST_EVENTS = [
-      // PAST EVENTS — add yours here
-      // { date:"2025-06-01", titre:"Soirée de fin de saison", titre_en:"End of season party", desc:"", desc_en:"", lieu:"PJ O'Brien", lien:"", statut:"termine" },
+      {
+        date:"2026-02-12",
+        titre:"Soccer Networking Event",
+        titre_en:"Soccer Networking Event",
+        desc:"Une soirée unique réunissant les passionnés de foot à Toronto — networking, rencontres et culture football. Nous y avons promu l'OM Toronto Club !",
+        desc_en:"A unique evening bringing together soccer enthusiasts in Toronto — networking, connections and football culture. We promoted the OM Toronto Club!",
+        lieu:"Pizza Rustica, 7 Blue Jays Way",
+        lien:"https://www.eventbrite.ca/e/soccer-networking-event-tickets-1980665212970/"
+      },
+      {
+        date:"2025-12-04",
+        titre:"Soccer Networking Event",
+        titre_en:"Soccer Networking Event",
+        desc:"2ème édition du Soccer Networking Event à Toronto. Soirée networking foot dans une ambiance internationale.",
+        desc_en:"2nd edition of the Soccer Networking Event in Toronto. Football networking evening in an international atmosphere.",
+        lieu:"St Louis Atrium, 595 Bay St",
+        lien:"https://www.eventbrite.ca/e/soccer-networking-event-tickets-1968820940432"
+      },
+      {
+        date:"2025-09-18",
+        titre:"Soccer Networking Event",
+        titre_en:"Soccer Networking Event",
+        desc:"1ère participation au Soccer Networking Event de Toronto — première sortie officielle du club dans la communauté foot de la ville.",
+        desc_en:"First participation in Toronto's Soccer Networking Event — the club's first official outing in the city's football community.",
+        lieu:"The Pint, Toronto",
+        lien:"https://www.eventbrite.ca/e/soccer-networking-event-tickets-1644025828509"
+      }
     ];
     function renderEvents(lang){
       const MONTHS_E=lang==="en"?MONTHS_EN:MONTHS_FR;
@@ -163,12 +188,18 @@
         const titre=lang==="en"&&e.titre_en?e.titre_en:e.titre;
         const desc=lang==="en"&&e.desc_en?e.desc_en:e.desc;
         const linkHtml=e.lien?`<a class="event-link" href="${e.lien}" target="_blank" rel="noopener">🔗 ${lang==="en"?"More info":"Plus d'infos"}</a>`:"";
-        const lieuHtml=e.lieu?`<span style="font-size:0.72rem;color:rgba(255,255,255,0.35);">📍 ${e.lieu}</span> `:""
-        return `<div class="event-card${past?" past":""}"><div class="event-date-col"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="event-body"><div class="event-title">${titre}</div>${desc?`<div class="event-desc">${desc}</div>`:""}<div>${lieuHtml}${linkHtml}</div></div></div>`;
+        const lieuHtml=e.lieu?`<span style="font-size:0.72rem;color:rgba(255,255,255,0.35);">📍 ${e.lieu}</span> `:"";
+        return `<div class="event-card${past?" past":""}"><div class="event-date-col"><div class="day">${day}</div><div class="month">${mon}</div></div><div class="event-body"><div class="event-title">${titre}</div>${desc?`<div class="event-desc">${desc}</div>`:""}<div style="margin-top:0.35rem;">${lieuHtml}${linkHtml}</div></div></div>`;
       }
       const upEl=document.getElementById("events-upcoming");
       if(EVENTS.length){upEl.innerHTML=EVENTS.map(e=>evCard(e,false)).join("");}
       else{upEl.innerHTML=`<p style="color:rgba(255,255,255,0.35);font-size:0.9rem;">${lang==="en"?"No upcoming events.":"Aucun événement à venir pour le moment."}</p>`;}
+      // Past events appended after past matches section
+      const pastMatchEl=document.getElementById("past");
+      if(PAST_EVENTS.length){
+        const sep=`<div style="margin:1.25rem 0 1rem;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.1em;color:rgba(201,168,76,0.6);">${lang==="en"?"🗓️ PAST EVENTS":"🗓️ ÉVÉNEMENTS PASSÉS"}</div>`;
+        pastMatchEl.insertAdjacentHTML("afterend", sep + PAST_EVENTS.map(e=>evCard(e,true)).join(""));
+      }
     }
 
     fetch("matchs.csv").then(r=>r.text()).then(text=>{
