@@ -66,7 +66,22 @@
     #loading{text-align:center;padding:2rem;color:rgba(255,255,255,0.4);font-size:0.9rem;}
     .footer{background:#060f1c;padding:1.25rem;text-align:center;border-top:1px solid rgba(255,255,255,0.06);}
     .footer p{font-size:0.72rem;color:rgba(255,255,255,0.25);letter-spacing:0.04em;}
-  </style>
+
+    .event-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;max-width:900px;margin-top:0.75rem;}
+    .event-card-new{background:#0a1628;border:1px solid rgba(201,168,76,0.2);border-radius:14px;overflow:hidden;transition:transform 0.15s,box-shadow 0.15s;text-decoration:none;color:#fff;display:flex;flex-direction:column;}
+    .event-card-new:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.4);border-color:rgba(201,168,76,0.5);}
+    .event-card-new.past{opacity:0.8;}
+    .event-card-img{width:100%;height:90px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a3260,#0d1f3c);font-size:2.2rem;}
+    .event-card-body{padding:0.9rem 1.1rem 1.1rem;flex:1;display:flex;flex-direction:column;gap:0.3rem;}
+    .event-tag{display:inline-block;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-bottom:0.25rem;background:rgba(201,168,76,0.12);color:#c9a84c;width:fit-content;}
+    .event-tag.past-tag{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.35);}
+    .event-card-title{font-size:0.9rem;font-weight:600;color:#fff;line-height:1.4;}
+    .event-card-desc{font-size:0.77rem;color:rgba(255,255,255,0.5);line-height:1.5;margin-top:0.2rem;}
+    .event-card-meta{font-size:0.72rem;color:rgba(255,255,255,0.3);margin-top:auto;padding-top:0.5rem;}
+    .event-card-link{display:inline-flex;align-items:center;gap:5px;font-size:0.75rem;color:#c9a84c;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.3);margin-top:0.5rem;width:fit-content;}
+    .event-card-link:hover{border-color:#c9a84c;}
+    .events-subtitle{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.1em;color:rgba(201,168,76,0.7);margin:1.75rem 0 0.75rem;}
+    </style>
 </head>
 <body>
   <div class="topbar">
@@ -204,7 +219,7 @@
         const sec=document.createElement("div");
         sec.id="past-events-section";
         sec.innerHTML=`<div class="events-subtitle">${lang==="en"?"🗓️ PAST EVENTS":"🗓️ ÉVÉNEMENTS PASSÉS"}</div><div class="event-grid">${PAST_EVENTS.map(e=>evCard(e,true)).join("")}</div>`;
-        pastMatchEl.parentNode.appendChild(sec);
+        pastMatchEl.parentNode.insertBefore(sec, pastMatchEl.nextSibling);
       }
     }
 
