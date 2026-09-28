@@ -163,8 +163,14 @@
       document.getElementById("past").innerHTML=past.length?past.map(m=>card(m,"past")).join(""):`<p style="color:rgba(255,255,255,0.35);font-size:0.9rem;">${lang==="en"?"No past matches yet.":"Aucun match passé pour le moment."}</p>`;
     }
     const EVENTS = [
-      // UPCOMING EVENTS — add yours here
-      // { date:"2026-06-01", titre:"Concours de pétanque", titre_en:"Pétanque tournament", desc:"Rejoignez-nous !", desc_en:"Join us!", lieu:"PJ O'Brien", lien:"" },
+      {
+        date:"2026-10-15",
+        titre:"Soccer Networking Event",
+        titre_en:"Soccer Networking Event",
+        desc:"4ème édition du Soccer Networking Event à Toronto. Soirée networking foot dans une ambiance internationale.",
+        desc_en:"4th edition of the Soccer Networking Event in Toronto. Football networking evening in an international atmosphere.",
+        lieu:"Pizza Rustica, 37 Blue Jays Way",
+       },
     ];
     const PAST_EVENTS = [
       {
@@ -172,8 +178,8 @@
         titre:"Soccer Networking Event",
         titre_en:"Soccer Networking Event",
         desc:"Une soirée unique réunissant les passionnés de foot à Toronto — networking, rencontres et culture football. Nous y avons promu l'OM Toronto Club !",
-        desc_en:"A unique evening bringing together soccer enthusiasts in Toronto — networking, connections and football culture. We promoted the OM Toronto Club!",
-        lieu:"Pizza Rustica, 7 Blue Jays Way",
+        desc_en:"A unique evening bringing together soccer enthusiasts in Toronto. Networking, connections and football culture. We promoted the OM Toronto Club!",
+        lieu:"Pizza Rustica, 37 Blue Jays Way",
         lien:"https://www.eventbrite.ca/e/soccer-networking-event-tickets-1980665212970/"
       },
       {
@@ -189,8 +195,8 @@
         date:"2025-09-18",
         titre:"Soccer Networking Event",
         titre_en:"Soccer Networking Event",
-        desc:"1ère participation au Soccer Networking Event de Toronto — première sortie officielle du club dans la communauté foot de la ville.",
-        desc_en:"First participation in Toronto's Soccer Networking Event — the club's first official outing in the city's football community.",
+        desc:"1ère participation au Soccer Networking Event de Toronto, première sortie officielle du club dans la communauté foot de la ville.",
+        desc_en:"First participation in Toronto's Soccer Networking Event, the club's first official outing in the city's football community.",
         lieu:"The Pint, Toronto",
         lien:"https://www.eventbrite.ca/e/soccer-networking-event-tickets-1644025828509"
       }
